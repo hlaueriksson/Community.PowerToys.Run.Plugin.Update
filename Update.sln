@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.PowerToys.Run.Plugin.Update", "src\Community.PowerToys.Run.Plugin.Update\Community.PowerToys.Run.Plugin.Update.csproj", "{76030D85-C851-43D8-9C42-07814B9E76CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.PowerToys.Run.Plugin.Update.Tests", "tests\Community.PowerToys.Run.Plugin.Update.Tests\Community.PowerToys.Run.Plugin.Update.Tests.csproj", "{4B47ADE0-6544-4831-85D5-6B1E5A66307B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Debug|ARM64.Build.0 = Debug|ARM64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Debug|x64.ActiveCfg = Debug|x64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Debug|x64.Build.0 = Debug|x64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Release|ARM64.ActiveCfg = Release|ARM64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Release|ARM64.Build.0 = Release|ARM64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Release|x64.ActiveCfg = Release|x64
+		{76030D85-C851-43D8-9C42-07814B9E76CF}.Release|x64.Build.0 = Release|x64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Debug|ARM64.Build.0 = Debug|ARM64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Debug|x64.ActiveCfg = Debug|x64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Debug|x64.Build.0 = Debug|x64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|ARM64.ActiveCfg = Release|ARM64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|ARM64.Build.0 = Release|ARM64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|x64.ActiveCfg = Release|x64
+		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D572E6D-CFB9-4FC5-A512-90E215986C06}
+	EndGlobalSection
+EndGlobal
