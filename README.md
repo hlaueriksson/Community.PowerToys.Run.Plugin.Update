@@ -212,6 +212,97 @@ public class Plugin1Settings
 }
 ```
 
+## Usage
+
+Examples of usage with the [GEmojiSharp.PowerToysRun](https://github.com/hlaueriksson/GEmojiSharp/tree/master/src/GEmojiSharp.PowerToysRun) plugin:
+
+![PowerToys Run - Update available](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/ptrun.png)
+
+- View release notes
+- Install update
+- Skip update
+
+![User Account Control](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/uac.png)
+
+- The installation requires the script to run as administrator
+
+![Administrator: Windows PowerShell](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/ps1.png)
+
+- The output of the script
+
+## Settings
+
+The `PluginUpdateSettings` class can be used to control the logic.
+
+The `DisableUpdates` property is set by the UI:
+
+![PowerToys Settings](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/ptrun-settings.png)
+
+- The user can disable updates
+
+The `ResultScore` property can be set by the plugin:
+
+```cs
+public class GEmojiSharpSettings
+{
+    public GEmojiSharpSettings()
+    {
+        Update = new PluginUpdateSettings
+        {
+            ResultScore = 100,
+        };
+    }
+
+    public PluginUpdateSettings Update { get; set; }
+}
+```
+
+- The score controls the sort order of results in PowerToys Run
+
+## Log
+
+During installation, an `update.log` file is written to the plugin folder:
+
+```txt
+**********************
+Windows PowerShell transcript start
+Start time: 20240804184434
+Username: DESKTOP\Henrik
+RunAs User: DESKTOP\Henrik
+Configuration Name: 
+Machine: DESKTOP (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\update.ps1 https://github.com/hlaueriksson/GEmojiSharp/releases/download/v4.0.0/GEmojiSharp.PowerToysRun-4.0.0-x64.zip
+Process ID: 27052
+PSVersion: 5.1.19041.4648
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.4648
+BuildVersion: 10.0.19041.4648
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\update.log
+2024-08-04 18:44:34 Update plugin...
+2024-08-04 18:44:34 AssetUrl: https://github.com/hlaueriksson/GEmojiSharp/releases/download/v4.0.0/GEmojiSharp.PowerToysRun-4.0.0-x64.zip
+2024-08-04 18:44:34 PluginDirectory: C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp
+2024-08-04 18:44:34 Log: C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\update.log
+2024-08-04 18:44:34 AssetName: GEmojiSharp.PowerToysRun-4.0.0-x64.zip
+2024-08-04 18:44:34 Kill PowerToys
+2024-08-04 18:44:35 Download release
+2024-08-04 18:44:36 Hash: 669F3A279E8AB90D19BCB34658B25C6409DC3D0A27243AB37C7CE30F2243EC94
+2024-08-04 18:44:36 Latest: https://github.com/hlaueriksson/GEmojiSharp/releases/latest
+2024-08-04 18:44:37 Hash is verified
+2024-08-04 18:44:37 Deletes plugin files
+2024-08-04 18:44:37 Extract release
+2024-08-04 18:44:38 Start PowerToys
+2024-08-04 18:44:38 Update complete!
+**********************
+Windows PowerShell transcript end
+End time: 20240804184438
+**********************
+```
+
 ## Disclaimer
 
 This is not an official Microsoft PowerToys package.
