@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <Platforms>x64;ARM64</Platforms>
     <PlatformTarget>$(Platform)</PlatformTarget>
-    <Version>0.1</Version>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <Version>0.1.0</Version>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Authors>Henrik Lau Eriksson</Authors>
     <Description>This NuGet package adds support for updating PowerToys Run Plugins.</Description>
     <PackageId>Community.PowerToys.Run.Plugin.Update</PackageId>
