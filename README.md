@@ -40,9 +40,66 @@ PackageReference:
 <PackageReference Include="Community.PowerToys.Run.Plugin.Update" Version="0.1.0" />
 ```
 
-## Example
+## Requirements
 
-Example of a `.csproj` file:
+You must:
+
+1. Package your plugin in a zip archive file
+2. Distribute your plugin as an Asset via GitHub Releases
+3. Tag the GitHub Release with the same version as the plugin
+
+The zip archive must:
+
+1. Follow the naming convention
+2. Contain a folder with the same name as the plugin
+3. Contain the the DLL, images and script from this NuGet package
+4. Not contain any `PowerToys` or `Wox` DLLs
+
+The `plugin.json` file must have:
+
+1. A `Name` that matches the zip archive filename
+4. A `Version` that matches the GitHub Release Tag
+3. The `Website` set to the GitHub Repo URL where the plugin is distributed
+4. `DynamicLoading` set to `true`
+
+Zip archive naming convention:
+
+- `<name>-<version>-<platform>.zip`
+
+where:
+
+- `<name>` is the name of the plugin and must match the `Name` in `plugin.json`
+- `<version>` is the plugin version and should match the `Version` in `plugin.json`
+- `<platform>` is `x64` or `arm64` depending on the operating system the plugin was built for
+
+Zip archives must contain:
+
+- `<name>`
+    - `Images`
+        - `update.light.png`
+        - `update.dark.png`
+    - `Community.PowerToys.Run.Plugin.Update.dll`
+    - `update.ps1`
+
+where:
+
+- `<name>` is a folder with the same name as the plugin, i.e. must match the `Name` in `plugin.json`
+
+Zip archives should not contain:
+
+- `PowerToys.Common.UI.dll`
+- `PowerToys.ManagedCommon.dll`
+- `PowerToys.Settings.UI.Lib.dll`
+- `Wox.Infrastructure.dll`
+- `Wox.Plugin.dll`
+
+Further reading:
+
+- [Community plugin checklist](https://github.com/hlaueriksson/awesome-powertoys-run-plugins/blob/main/checklist.md)
+
+## Sample
+
+The [Sample](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/tree/main/samples/Community.PowerToys.Run.Plugin.Sample) project showcases how to use the `Community.PowerToys.Run.Plugin.Update` NuGet package.
 
 ```csproj
 <Project Sdk="Microsoft.NET.Sdk">
@@ -70,40 +127,76 @@ Example of a `.csproj` file:
 </Project>
 ```
 
-Remember to enable `DynamicLoading` in the `plugin.json` file:
+- Reference the latest version of `Community.PowerToys.Run.Plugin.Update`
 
 ```json
-"DynamicLoading": true
+{
+  "ID": "0F13EFB04E5749BD92B8FA3B4353F5A6",
+  "ActionKeyword": "sample",
+  "IsGlobal": false,
+  "Name": "Sample",
+  "Author": "hlaueriksson",
+  "Version": "0.1.0",
+  "Language": "csharp",
+  "Website": "https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.Sample.dll",
+  "IcoPathDark": "Images\\sample.dark.png",
+  "IcoPathLight": "Images\\sample.light.png",
+  "DynamicLoading": true
+}
 ```
 
-Example of a `Main.cs` file:
+- The `Name` must match the zip archive filename
+- The `Version` must match the GitHub Release Tag and should match the zip archive filename
+- The `Website` must be the URL of the GitHub Repo
+- Enable `DynamicLoading`
+
+```cs
+public class SampleSettings
+{
+    public PluginUpdateSettings Update { get; set; } = new PluginUpdateSettings { ResultScore = 100 };
+
+    internal IEnumerable<PluginAdditionalOption> GetAdditionalOptions() => Update.GetAdditionalOptions();
+
+    internal void SetAdditionalOptions(IEnumerable<PluginAdditionalOption> additionalOptions) => Update.SetAdditionalOptions(additionalOptions);
+}
+```
+
+Create a settings class for the plugin that has:
+
+- A `PluginUpdateSettings` property
+    - You can use `ResultScore` to control the sort order of the "update result" in the PowerToys Run UI
+- Methods that invokes `GetAdditionalOptions` and `SetAdditionalOptions` from the `PluginUpdateSettings` property
+    - PowerToys will use the options from `GetAdditionalOptions` to populate the settings in the UI
+    - PowerToys will use `SetAdditionalOptions` to update the plugin settings from the UI
 
 ```cs
 public class Main : IPlugin, IContextMenu, ISettingProvider, ISavable, IDisposable
 {
     public Main()
     {
-        Storage = new PluginJsonStorage<Plugin1Settings>();
+        Storage = new PluginJsonStorage<SampleSettings>();
         Settings = Storage.Load();
+
         Updater = new PluginUpdateHandler(Settings.Update);
         Updater.UpdateInstalling += OnUpdateInstalling;
         Updater.UpdateInstalled += OnUpdateInstalled;
         Updater.UpdateSkipped += OnUpdateSkipped;
     }
 
-    public static string PluginID => "00000000000000000000000000000000";
+    public static string PluginID => "0F13EFB04E5749BD92B8FA3B4353F5A6";
 
-    public string Name => "Plugin1";
+    public string Name => "Sample";
 
-    public string Description => "Plugin1 Description";
+    public string Description => "Sample Description";
 
     public IEnumerable<PluginAdditionalOption> AdditionalOptions => Settings.GetAdditionalOptions();
 
-    private PluginJsonStorage<Plugin1Settings> Storage { get; }
+    private PluginJsonStorage<SampleSettings> Storage { get; }
 
-    private Plugin1Settings Settings { get; }
+    private SampleSettings Settings { get; }
 
-    private PluginUpdateHandler Updater { get; }
+    private IPluginUpdateHandler Updater { get; }
 
     private PluginInitContext? Context { get; set; }
 
@@ -113,13 +206,36 @@ public class Main : IPlugin, IContextMenu, ISettingProvider, ISavable, IDisposab
 
     public List<Result> Query(Query query)
     {
+        var results = new List<Result>();
+
         if (Updater.IsUpdateAvailable())
         {
-            return Updater.GetResults();
+            results.AddRange(Updater.GetResults());
         }
 
-        // TODO: implement
-        return [];
+        results.AddRange(
+        [
+            new Result
+            {
+                IcoPath = IconPath,
+                Title = "1. Lower the version of this plugin by editing the plugin.json file",
+                SubTitle = @"%LocalAppData%\Microsoft\PowerToys\PowerToys Run\Plugins\Sample\plugin.json",
+            },
+            new Result
+            {
+                IcoPath = IconPath,
+                Title = "2. Restart PowerToys to reload the plugin",
+                SubTitle = "Exit PowerToys from Windows System Tray, start PowerToys from the Windows Start Menu",
+            },
+            new Result
+            {
+                IcoPath = IconPath,
+                Title = "3. You should now be able to update the plugin",
+                SubTitle = "Select and press Enter on \"Sample v0.1.0 - Update available\"",
+            },
+        ]);
+
+        return results;
     }
 
     public void Init(PluginInitContext context)
@@ -134,9 +250,11 @@ public class Main : IPlugin, IContextMenu, ISettingProvider, ISavable, IDisposab
     public List<ContextMenuResult> LoadContextMenus(Result selectedResult)
     {
         var results = Updater.GetContextMenuResults(selectedResult);
-        if (results.Count != 0) return results;
+        if (results.Count != 0)
+        {
+            return results;
+        }
 
-        // TODO: implement
         return [];
     }
 
@@ -175,7 +293,7 @@ public class Main : IPlugin, IContextMenu, ISettingProvider, ISavable, IDisposab
         Disposed = true;
     }
 
-    private void UpdateIconPath(Theme theme) => IconPath = theme == Theme.Light || theme == Theme.HighContrastWhite ? "Images/plugin1.light.png" : "Images/plugin1.dark.png";
+    private void UpdateIconPath(Theme theme) => IconPath = theme == Theme.Light || theme == Theme.HighContrastWhite ? "Images/sample.light.png" : "Images/sample.dark.png";
 
     private void OnThemeChanged(Theme currentTheme, Theme newTheme) => UpdateIconPath(newTheme);
 
@@ -199,28 +317,50 @@ public class Main : IPlugin, IContextMenu, ISettingProvider, ISavable, IDisposab
 }
 ```
 
-Example of a `Settings` class:
+Update the `Main` class with these changes:
 
-```cs
-public class Plugin1Settings
-{
-    public PluginUpdateSettings Update { get; set; } = new PluginUpdateSettings();
-
-    internal IEnumerable<PluginAdditionalOption> GetAdditionalOptions() => Update.GetAdditionalOptions();
-
-    internal void SetAdditionalOptions(IEnumerable<PluginAdditionalOption> additionalOptions) => Update.SetAdditionalOptions(additionalOptions);
-}
-```
+- Implement the `IContextMenu`, `ISettingProvider`, `ISavable` interfaces
+- Create storage and load settings in the constructor
+- Create a `PluginUpdateHandler` and subscribe the update events in the constructor
+- When implementing the `ISettingProvider` interface, use the methods defined in the settings class
+    - Make sure to save the settings in the `UpdateSettings` method
+- In the `Query` method, use the `IsUpdateAvailable` and `GetResults` methods from the `PluginUpdateHandler`
+- In the `Init` method, invoke `Init` in the `PluginUpdateHandler` and pass the `PluginInitContext`
+- When implementing the `IContextMenu` interface, use the `GetContextMenuResults` method from the `PluginUpdateHandler`
+- By implementing the `ISavable` interface, you can make sure that the plugin settings are saved when they change
+- In the `Dispose` method, invoke `Dispose` in the `PluginUpdateHandler`
+- The update events can be used to communicate with the user
+    - `UpdateInstalling` is raised when the user starts the installation
+    - `UpdateInstalled` is raised when the installation is complete
+        - This is after PowerToys has been restarted and the user has activated the plugin again
+        - This is a good time to `ShowNotification`
+    - `UpdateSkipped` is raised when the user decides to skip updates to the latest version
+        - Make sure to save the settings
+        - This is a good time to `ChangeQuery` to refresh the UI
 
 ## Usage
+
+If the latest version (GitHub Release Tag) is greater than (`>`) the current version (`Version` in `plugin.json`), then an "update result" is displayed in the PowerToys Run UI.
+
+GitHub Release Tag:
+
+![GitHub Release Tag](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/github-release-tag.png)
+
+`Version` in `plugin.json`:
+
+![plugin.json Version](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/plugin-json-version.png)
 
 Examples of usage with the [GEmojiSharp.PowerToysRun](https://github.com/hlaueriksson/GEmojiSharp/tree/master/src/GEmojiSharp.PowerToysRun) plugin:
 
 ![PowerToys Run - Update available](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/ptrun.png)
 
+The user can:
+
 - View release notes
 - Install update
 - Skip update
+
+The update is installed via a [PowerShell script](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/blob/main/src/Community.PowerToys.Run.Plugin.Update/update.ps1).
 
 ![User Account Control](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/uac.png)
 
@@ -232,32 +372,15 @@ Examples of usage with the [GEmojiSharp.PowerToysRun](https://github.com/hlaueri
 
 ## Settings
 
-The `PluginUpdateSettings` class can be used to control the logic.
-
-The `DisableUpdates` property is set by the UI:
+1. Open PowerToys Settings
+2. Click PowerToys Run in the menu to the left
+3. Scroll down to the Plugins section
+4. Expand the given plugin
 
 ![PowerToys Settings](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/ptrun-settings.png)
 
 - The user can disable updates
-
-The `ResultScore` property can be set by the plugin:
-
-```cs
-public class GEmojiSharpSettings
-{
-    public GEmojiSharpSettings()
-    {
-        Update = new PluginUpdateSettings
-        {
-            ResultScore = 100,
-        };
-    }
-
-    public PluginUpdateSettings Update { get; set; }
-}
-```
-
-- The score controls the sort order of results in PowerToys Run
+    - You can toggle this setting on and off to reset a previously skipped update
 
 ## Log
 
