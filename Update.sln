@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.PowerToys.Run.Plu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.PowerToys.Run.Plugin.Update.Tests", "tests\Community.PowerToys.Run.Plugin.Update.Tests\Community.PowerToys.Run.Plugin.Update.Tests.csproj", "{4B47ADE0-6544-4831-85D5-6B1E5A66307B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.PowerToys.Run.Plugin.Sample", "samples\Community.PowerToys.Run.Plugin.Sample\Community.PowerToys.Run.Plugin.Sample.csproj", "{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -31,6 +33,14 @@ Global
 		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|ARM64.Build.0 = Release|ARM64
 		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|x64.ActiveCfg = Release|x64
 		{4B47ADE0-6544-4831-85D5-6B1E5A66307B}.Release|x64.Build.0 = Release|x64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Debug|ARM64.Build.0 = Debug|ARM64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Debug|x64.ActiveCfg = Debug|x64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Debug|x64.Build.0 = Debug|x64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Release|ARM64.ActiveCfg = Release|ARM64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Release|ARM64.Build.0 = Release|ARM64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Release|x64.ActiveCfg = Release|x64
+		{C1D4B58E-D4EE-437B-B251-306CDFA90DAD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

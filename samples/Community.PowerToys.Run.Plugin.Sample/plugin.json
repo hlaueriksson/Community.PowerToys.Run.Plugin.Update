@@ -1,0 +1,14 @@
+{
+  "ID": "0F13EFB04E5749BD92B8FA3B4353F5A6",
+  "ActionKeyword": "sample",
+  "IsGlobal": false,
+  "Name": "Sample",
+  "Author": "hlaueriksson",
+  "Version": "0.1.0",
+  "Language": "csharp",
+  "Website": "https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.Sample.dll",
+  "IcoPathDark": "Images\\sample.dark.png",
+  "IcoPathLight": "Images\\sample.light.png",
+  "DynamicLoading": true
+}
