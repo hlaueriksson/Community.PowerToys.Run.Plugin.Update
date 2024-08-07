@@ -56,17 +56,8 @@ namespace Community.PowerToys.Run.Plugin.Update
     }
 
     /// <inheritdoc/>
-    public sealed class PluginUpdateHandler : IPluginUpdateHandler
+    public sealed class PluginUpdateHandler(PluginUpdateSettings settings) : IPluginUpdateHandler
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PluginUpdateHandler"/> class.
-        /// </summary>
-        /// <param name="settings">Settings.</param>
-        public PluginUpdateHandler(PluginUpdateSettings settings)
-        {
-            Settings = settings;
-        }
-
         /// <inheritdoc/>
         public event EventHandler<PluginUpdateEventArgs>? UpdateInstalling;
 
@@ -76,7 +67,7 @@ namespace Community.PowerToys.Run.Plugin.Update
         /// <inheritdoc/>
         public event EventHandler<PluginUpdateEventArgs>? UpdateSkipped;
 
-        private PluginUpdateSettings Settings { get; set; }
+        private PluginUpdateSettings Settings { get; } = settings;
 
         private PluginMetadata Metadata { get; set; } = null!;
 
@@ -97,6 +88,9 @@ namespace Community.PowerToys.Run.Plugin.Update
             Api = context.API;
             Api.ThemeChanged += OnThemeChanged;
             UpdateIconPath(Api.GetCurrentTheme());
+
+            LatestRelease = null;
+            LatestAsset = null;
 
             if (Settings.DisableUpdates)
             {
@@ -134,6 +128,11 @@ namespace Community.PowerToys.Run.Plugin.Update
         /// <inheritdoc/>
         public bool IsUpdateAvailable()
         {
+            if (Settings.DisableUpdates)
+            {
+                return false;
+            }
+
             if (LatestRelease == null || LatestRelease.tag_name == Settings.SkipUpdate)
             {
                 return false;
@@ -200,7 +199,7 @@ namespace Community.PowerToys.Run.Plugin.Update
                 new()
                 {
                     PluginName = Metadata.Name,
-                    Title = $"View release notes",
+                    Title = "View release notes",
                     FontFamily = "Segoe MDL2 Assets",
                     Glyph = "\xF6FA", // WebSearch
                     AcceleratorKey = Key.Home,
