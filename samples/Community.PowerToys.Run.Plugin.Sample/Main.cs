@@ -91,7 +91,7 @@ namespace Community.PowerToys.Run.Plugin.Sample
                 {
                     IcoPath = IconPath,
                     Title = "3. You should now be able to update the plugin",
-                    SubTitle = "Select and press Enter on \"Sample v0.1.0 - Update available\"",
+                    SubTitle = "Select and press Enter on \"Sample v0.2.0 - Update available\"",
                 },
             ]);
 
