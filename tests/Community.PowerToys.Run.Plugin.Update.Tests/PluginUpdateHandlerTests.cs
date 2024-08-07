@@ -14,8 +14,8 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
             var subject = GetSubject(new());
             var metadata = new PluginMetadata
             {
-                Name = "GEmojiSharp",
-                Website = "https://github.com/hlaueriksson/GEmojiSharp",
+                Name = "Sample",
+                Website = "https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update",
             };
             var context = GetContext(metadata);
 
@@ -46,8 +46,8 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
             var subject = GetSubject(new());
             var metadata = new PluginMetadata
             {
-                Name = "GEmojiSharp",
-                Website = "https://gitfail.com/hlaueriksson/GEmojiSharp",
+                Name = "Sample",
+                Website = "https://gitfail.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update",
             };
             var context = GetContext(metadata);
 
@@ -58,8 +58,8 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
         [Test]
         public void IsUpdateAvailable_should_return_true_if_the_latest_version_is_greater_than_the_current_version()
         {
-            var metadata = new PluginMetadata { Version = "3.1.3" };
-            var release = new Release { tag_name = "v4.0.0" };
+            var metadata = new PluginMetadata { Version = "0.0.9" };
+            var release = new Release { tag_name = "v0.1.0" };
             var subject = GetSubject(new(), metadata, release, new());
 
             var result = subject.IsUpdateAvailable();
@@ -70,8 +70,8 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
         public void IsUpdateAvailable_should_raise_event_if_UpdateWasInstalled()
         {
             var settings = new PluginUpdateSettings { UpdateTimestamp = DateTime.Now };
-            var metadata = new PluginMetadata { Version = "4.0.0" };
-            var release = new Release { tag_name = "v4.0.0" };
+            var metadata = new PluginMetadata { Version = "0.1.0" };
+            var release = new Release { tag_name = "v0.1.0" };
             var subject = GetSubject(settings, metadata, release, new());
             using var monitoredSubject = subject.Monitor();
 
@@ -82,8 +82,8 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
         [Test]
         public void GetResults_should_return_result_if_update_is_available()
         {
-            var metadata = new PluginMetadata { Version = "3.1.3" };
-            var release = new Release { tag_name = "v4.0.0" };
+            var metadata = new PluginMetadata { Version = "0.0.9" };
+            var release = new Release { tag_name = "v0.1.0" };
             var subject = GetSubject(new(), metadata, release, new());
 
             var result = subject.GetResults();

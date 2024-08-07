@@ -29,7 +29,7 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
 
             var settings = new PluginUpdateSettings
             {
-                SkipUpdate = "v4.0.0",
+                SkipUpdate = "v0.1.0",
             };
             settings.SetAdditionalOptions(options);
             settings.DisableUpdates.Should().BeTrue();

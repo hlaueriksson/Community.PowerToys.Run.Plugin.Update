@@ -9,10 +9,10 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
         [Test]
         public void GetGitHubOptions_should_parse_Website()
         {
-            new PluginMetadata { Website = "https://github.com/hlaueriksson/GEmojiSharp" }.GetGitHubOptions().Should()
-                .BeEquivalentTo(new GitHubOptions { Owner = "hlaueriksson", Repo = "GEmojiSharp" });
+            new PluginMetadata { Website = "https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update" }.GetGitHubOptions().Should()
+                .BeEquivalentTo(new GitHubOptions { Owner = "hlaueriksson", Repo = "Community.PowerToys.Run.Plugin.Update" });
 
-            new PluginMetadata { Website = "https://gitfail.com/hlaueriksson/GEmojiSharp" }.GetGitHubOptions().Should()
+            new PluginMetadata { Website = "https://gitfail.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update" }.GetGitHubOptions().Should()
                 .BeEquivalentTo(new GitHubOptions());
 
             new PluginMetadata { Website = "" }.GetGitHubOptions().Should()

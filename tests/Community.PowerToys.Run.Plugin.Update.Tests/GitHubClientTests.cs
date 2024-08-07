@@ -29,7 +29,7 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
         [Test]
         public async Task GetLatestReleaseAsync_should_return_latest_release()
         {
-            var options = new GitHubOptions { Owner = "hlaueriksson", Repo = "GEmojiSharp" };
+            var options = new GitHubOptions { Owner = "hlaueriksson", Repo = "Community.PowerToys.Run.Plugin.Update" };
             var subject = new GitHubClient(options);
 
             var result = await subject.GetLatestReleaseAsync();
@@ -40,7 +40,7 @@ namespace Community.PowerToys.Run.Plugin.Update.Tests
         [Test]
         public async Task GetLatestReleaseAsync_should_throw_if_Owner_is_invalid()
         {
-            var options = new GitHubOptions { Owner = "userthatdoesnotexist", Repo = "GEmojiSharp" };
+            var options = new GitHubOptions { Owner = "userthatdoesnotexist", Repo = "Community.PowerToys.Run.Plugin.Update" };
             var subject = new GitHubClient(options);
 
             Func<Task> act = () => subject.GetLatestReleaseAsync();
