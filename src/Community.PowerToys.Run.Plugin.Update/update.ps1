@@ -118,7 +118,7 @@ try {
 
     Write-Log "Extract release"
     $parent = Split-Path -Path $pluginDirectory -Parent
-    Expand-Archive -Path $release -DestinationPath $parent
+    Expand-Archive -Path $release -DestinationPath $parent -Force
 
     Write-Log "Start PowerToys"
     $machinePath = "C:\Program Files\PowerToys\PowerToys.exe"
