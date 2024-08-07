@@ -1,1 +1,1 @@
-nuget init .\src\Community.PowerToys.Run.Plugin.Update\bin\x64\Release\ .\packages
+nuget init .\src\Community.PowerToys.Run.Plugin.Update\bin\ARM64\Release\ .\packages
