@@ -3,7 +3,9 @@
 [![build](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/actions/workflows/build.yml)
 [![Community.PowerToys.Run.Plugin.Update](https://img.shields.io/nuget/v/Community.PowerToys.Run.Plugin.Update.svg?label=Community.PowerToys.Run.Plugin.Update)](https://www.nuget.org/packages/Community.PowerToys.Run.Plugin.Update)
 
-This NuGet package adds support for updating PowerToys Run Plugins.
+This NuGet package is intended for PowerToys Run community plugins authors.
+
+It adds support for updating PowerToys Run Plugins.
 
 It contains a `ARM64` and `x64` version of:
 
@@ -96,6 +98,23 @@ Zip archives should not contain:
 Further reading:
 
 - [Community plugin checklist](https://github.com/hlaueriksson/awesome-powertoys-run-plugins/blob/main/checklist.md)
+
+## Caveats
+
+Adding `Community.PowerToys.Run.Plugin.Update` to your plugin adds ~3 seconds overhead during `Init`.
+
+Check the logs for benchmarks:
+
+- `%LocalAppData%\Microsoft\PowerToys\PowerToys Run\Logs\<Version>\`
+
+Example with [GEmojiSharp.PowerToysRun](https://github.com/hlaueriksson/GEmojiSharp/tree/master/src/GEmojiSharp.PowerToysRun):
+
+```diff
+-   Load cost for <GEmojiSharp> is <3ms>
++   Load cost for <GEmojiSharp> is <9ms>
+-   Total initialize cost for <GEmojiSharp> is <3ms>
++   Total initialize cost for <GEmojiSharp> is <2969ms>
+```
 
 ## Sample
 
@@ -350,7 +369,7 @@ GitHub Release Tag:
 
 ![plugin.json Version](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/plugin-json-version.png)
 
-Examples of usage with the [GEmojiSharp.PowerToysRun](https://github.com/hlaueriksson/GEmojiSharp/tree/master/src/GEmojiSharp.PowerToysRun) plugin:
+Update available:
 
 ![PowerToys Run - Update available](https://raw.githubusercontent.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/main/ptrun.png)
 
@@ -389,13 +408,13 @@ During installation, an `update.log` file is written to the plugin folder:
 ```txt
 **********************
 Windows PowerShell transcript start
-Start time: 20240804184434
-Username: DESKTOP\Henrik
-RunAs User: DESKTOP\Henrik
+Start time: 20240807183206
+Username: DESKTOP-SHOAM2C\Henrik
+RunAs User: DESKTOP-SHOAM2C\Henrik
 Configuration Name: 
-Machine: DESKTOP (Microsoft Windows NT 10.0.19045.0)
-Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\update.ps1 https://github.com/hlaueriksson/GEmojiSharp/releases/download/v4.0.0/GEmojiSharp.PowerToysRun-4.0.0-x64.zip
-Process ID: 27052
+Machine: DESKTOP-SHOAM2C (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\Sample\update.ps1 https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/releases/download/v0.1.0/Sample-0.1.0-x64.zip
+Process ID: 2124
 PSVersion: 5.1.19041.4648
 PSEdition: Desktop
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.4648
@@ -405,26 +424,32 @@ WSManStackVersion: 3.0
 PSRemotingProtocolVersion: 2.3
 SerializationVersion: 1.1.0.1
 **********************
-Transcript started, output file is C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\update.log
-2024-08-04 18:44:34 Update plugin...
-2024-08-04 18:44:34 AssetUrl: https://github.com/hlaueriksson/GEmojiSharp/releases/download/v4.0.0/GEmojiSharp.PowerToysRun-4.0.0-x64.zip
-2024-08-04 18:44:34 PluginDirectory: C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp
-2024-08-04 18:44:34 Log: C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\update.log
-2024-08-04 18:44:34 AssetName: GEmojiSharp.PowerToysRun-4.0.0-x64.zip
-2024-08-04 18:44:34 Kill PowerToys
-2024-08-04 18:44:35 Download release
-2024-08-04 18:44:36 Hash: 669F3A279E8AB90D19BCB34658B25C6409DC3D0A27243AB37C7CE30F2243EC94
-2024-08-04 18:44:36 Latest: https://github.com/hlaueriksson/GEmojiSharp/releases/latest
-2024-08-04 18:44:37 Hash is verified
-2024-08-04 18:44:37 Deletes plugin files
-2024-08-04 18:44:37 Extract release
-2024-08-04 18:44:38 Start PowerToys
-2024-08-04 18:44:38 Update complete!
+Transcript started, output file is C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\Sample\update.log
+2024-08-07 18:32:06 Update plugin...
+2024-08-07 18:32:06 AssetUrl: https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/releases/download/v0.1.0/Sample-0.1.0-x64.zip
+2024-08-07 18:32:06 PluginDirectory: C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\Sample
+2024-08-07 18:32:06 Log: C:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\Sample\update.log
+2024-08-07 18:32:06 AssetName: Sample-0.1.0-x64.zip
+2024-08-07 18:32:06 Kill PowerToys
+2024-08-07 18:32:07 Download release
+2024-08-07 18:32:07 Hash: 5F7F0172D7EC6FD38CB52D4D8C1F1B224BC0F7C61F275A942F3EBF876DDC10A4
+2024-08-07 18:32:07 Latest: https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/releases/latest
+2024-08-07 18:32:08 Hash is verified
+2024-08-07 18:32:08 Deletes plugin files
+2024-08-07 18:32:08 Extract release
+2024-08-07 18:32:09 Start PowerToys
+2024-08-07 18:32:09 Update complete!
 **********************
 Windows PowerShell transcript end
-End time: 20240804184438
+End time: 20240807183209
 **********************
 ```
+
+## Community
+
+Community plugins that use this package:
+
+- [GEmojiSharp.PowerToysRun](https://github.com/hlaueriksson/GEmojiSharp/tree/master/src/GEmojiSharp.PowerToysRun)
 
 ## Disclaimer
 
