@@ -113,7 +113,7 @@ try {
         }
     }
 
-    Write-Log "Deletes plugin files"
+    Write-Log "Delete plugin files"
     Get-ChildItem -Path $pluginDirectory -Exclude @("update.*", "*.zip") | Remove-Item -Recurse -Force -Confirm:$false
 
     Write-Log "Extract release"
