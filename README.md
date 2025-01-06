@@ -124,7 +124,7 @@ The [Sample](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Upda
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <Platforms>x64;ARM64</Platforms>
     <PlatformTarget>$(Platform)</PlatformTarget>
