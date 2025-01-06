@@ -39,7 +39,7 @@ PM> NuGet\Install-Package Community.PowerToys.Run.Plugin.Update
 PackageReference:
 
 ```csproj
-<PackageReference Include="Community.PowerToys.Run.Plugin.Update" Version="0.2.0" />
+<PackageReference Include="Community.PowerToys.Run.Plugin.Update" Version="0.3.0" />
 ```
 
 ## Requirements
@@ -131,7 +131,7 @@ The [Sample](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Upda
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Community.PowerToys.Run.Plugin.Update" Version="0.2.0" />
+    <PackageReference Include="Community.PowerToys.Run.Plugin.Update" Version="0.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -155,7 +155,7 @@ The [Sample](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Upda
   "IsGlobal": false,
   "Name": "Sample",
   "Author": "hlaueriksson",
-  "Version": "0.2.0",
+  "Version": "0.3.0",
   "Language": "csharp",
   "Website": "https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update",
   "ExecuteFileName": "Community.PowerToys.Run.Plugin.Sample.dll",
@@ -250,7 +250,7 @@ public class Main : IPlugin, IContextMenu, ISettingProvider, ISavable, IDisposab
             {
                 IcoPath = IconPath,
                 Title = "3. You should now be able to update the plugin",
-                SubTitle = "Select and press Enter on \"Sample v0.2.0 - Update available\"",
+                SubTitle = "Select and press Enter on \"Sample v0.3.0 - Update available\"",
             },
         ]);
 
