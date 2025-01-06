@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NoWarn>$(NoWarn);NU5110;NU5111</NoWarn>
+    <NoWarn>NU5110;NU5111;NU5128;PKV0001</NoWarn>
   </PropertyGroup>
 
   <Import Project="../../Analyzers.props" />
