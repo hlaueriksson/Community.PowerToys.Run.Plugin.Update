@@ -102,7 +102,9 @@ namespace Community.PowerToys.Run.Plugin.Update
                 var client = new GitHubClient(Metadata.GetGitHubOptions());
 
 #pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
+#pragma warning disable VSTHRD104 // Offer async methods
                 LatestRelease = client.GetLatestReleaseAsync().Result;
+#pragma warning restore VSTHRD104 // Offer async methods
 #pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
             }
 #pragma warning disable CA1031 // Do not catch general exception types

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Platforms>x64;ARM64</Platforms>
     <PlatformTarget>$(Platform)</PlatformTarget>
@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NoWarn>$(NoWarn);NU5110;NU5111</NoWarn>
+    <NoWarn>NU5110;NU5111;NU5128;PKV0001</NoWarn>
   </PropertyGroup>
 
   <Import Project="../../Analyzers.props" />
@@ -28,27 +28,27 @@
   <ItemGroup>
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="Community.PowerToys.Run.Plugin.Update.props" Pack="true" PackagePath="buildTransitive" />
+    <None Include="Community.PowerToys.Run.Plugin.Update.targets" Pack="true" PackagePath="buildTransitive" />
     <None Include="update.dark.png" Pack="true" PackagePath="buildTransitive" />
     <None Include="update.light.png" Pack="true" PackagePath="buildTransitive" />
     <None Include="update.ps1" Pack="true" PackagePath="buildTransitive" />
-    <None Include="Community.PowerToys.Run.Plugin.Update.props" Pack="true" PackagePath="buildTransitive" />
-    <None Include="Community.PowerToys.Run.Plugin.Update.targets" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="bin\ARM64\Release\net8.0-windows\Community.PowerToys.Run.Plugin.Update.dll" Pack="true" PackagePath="lib/net8.0-windows7.0/ARM64/" />
-    <None Include="bin\ARM64\Release\net8.0-windows\Community.PowerToys.Run.Plugin.Update.pdb" Pack="true" PackagePath="lib/net8.0-windows7.0/ARM64/" />
-    <None Include="bin\ARM64\Release\net8.0-windows\Community.PowerToys.Run.Plugin.Update.xml" Pack="true" PackagePath="lib/net8.0-windows7.0/ARM64/" />
+    <None Include="bin\ARM64\Release\net9.0-windows\Community.PowerToys.Run.Plugin.Update.dll" Pack="true" PackagePath="runtimes\win-arm64\lib\net9.0" />
+    <None Include="bin\ARM64\Release\net9.0-windows\Community.PowerToys.Run.Plugin.Update.pdb" Pack="true" PackagePath="runtimes\win-arm64\lib\net9.0" />
+    <None Include="bin\ARM64\Release\net9.0-windows\Community.PowerToys.Run.Plugin.Update.xml" Pack="true" PackagePath="runtimes\win-arm64\lib\net9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="bin\x64\Release\net8.0-windows\Community.PowerToys.Run.Plugin.Update.dll" Pack="true" PackagePath="lib/net8.0-windows7.0/x64/" />
-    <None Include="bin\x64\Release\net8.0-windows\Community.PowerToys.Run.Plugin.Update.pdb" Pack="true" PackagePath="lib/net8.0-windows7.0/x64/" />
-    <None Include="bin\x64\Release\net8.0-windows\Community.PowerToys.Run.Plugin.Update.xml" Pack="true" PackagePath="lib/net8.0-windows7.0/x64/" />
+    <None Include="bin\x64\Release\net9.0-windows\Community.PowerToys.Run.Plugin.Update.dll" Pack="true" PackagePath="runtimes\win-x64\lib\net9.0" />
+    <None Include="bin\x64\Release\net9.0-windows\Community.PowerToys.Run.Plugin.Update.pdb" Pack="true" PackagePath="runtimes\win-x64\lib\net9.0" />
+    <None Include="bin\x64\Release\net9.0-windows\Community.PowerToys.Run.Plugin.Update.xml" Pack="true" PackagePath="runtimes\win-x64\lib\net9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Community.PowerToys.Run.Plugin.Dependencies" Version="0.83.0" />
+    <PackageReference Include="Community.PowerToys.Run.Plugin.Dependencies" Version="0.87.1" />
   </ItemGroup>
 
   <ItemGroup>

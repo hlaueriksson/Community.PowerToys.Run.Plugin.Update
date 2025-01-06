@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="'$(Platform)' == 'ARM64'">
-    <Reference Include="Community.PowerToys.Run.Plugin.Update.dll" HintPath="$(MSBuildThisFileDirectory)..\lib\net8.0-windows7.0\ARM64\Community.PowerToys.Run.Plugin.Update.dll" />
+    <Reference Include="Community.PowerToys.Run.Plugin.Update.dll" HintPath="$(MSBuildThisFileDirectory)..\runtimes\win-arm64\lib\net9.0\Community.PowerToys.Run.Plugin.Update.dll" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Platform)' == 'x64'">
-    <Reference Include="Community.PowerToys.Run.Plugin.Update.dll" HintPath="$(MSBuildThisFileDirectory)..\lib\net8.0-windows7.0\x64\Community.PowerToys.Run.Plugin.Update.dll" />
+  <ItemGroup Condition="'$(Platform)' == 'x64' or '$(Platform)' == 'AnyCPU'">
+    <Reference Include="Community.PowerToys.Run.Plugin.Update.dll" HintPath="$(MSBuildThisFileDirectory)..\runtimes\win-x64\lib\net9.0\Community.PowerToys.Run.Plugin.Update.dll" />
   </ItemGroup>
 </Project>

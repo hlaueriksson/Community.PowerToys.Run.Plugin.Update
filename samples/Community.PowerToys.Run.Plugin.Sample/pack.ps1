@@ -1,5 +1,5 @@
 <#PSScriptInfo
-.VERSION 0.0.0
+.VERSION 0.87.0
 .GUID 58d7b8e8-fa18-485d-baaf-4c413181280b
 .AUTHOR Henrik Lau Eriksson
 .COMPANYNAME
@@ -16,12 +16,12 @@
 
 <#
     .Synopsis
-    Packs the plugin into release archive.
+    Packs the plugins into release archives.
 
     .Description
-    Builds the project in Release configuration,
-    copies the output files into plugin folder,
-    packs the plugin folder into release archive.
+    Builds the solution in Release configuration,
+    copies the output files into plugin folders,
+    packs the plugin folders into release archives.
 
     .Example
     .\pack.ps1
@@ -33,38 +33,44 @@
 # Clean
 Get-ChildItem -Path "." -Directory -Include "bin", "obj" -Recurse | Remove-Item -Recurse -Force
 
-# Name
-$folder = Split-Path -Path $PWD -Leaf
-$name = $folder.Split(".")[-1]
-Write-Output "Pack: $name"
+$dependencies = @("PowerToys.Common.UI.*", "PowerToys.ManagedCommon.*", "PowerToys.Settings.UI.Lib.*", "Wox.Infrastructure.*", "Wox.Plugin.*")
 
-# Version
-$json = Get-Content -Path "plugin.json" -Raw | ConvertFrom-Json
-$version = $json.Version
-Write-Output "Version: $version"
+# Plugins
+$folders = Get-ChildItem -Recurse -Filter "plugin.json" | Where-Object { $_.FullName -notlike "*\bin\*" } | ForEach-Object { $_.Directory } | Sort-Object -Unique
 
-# Platforms
-[xml]$csproj = Get-Content -Path "*.csproj"
-$platforms = "$($csproj.Project.PropertyGroup.Platforms)".Trim() -split ";"
+Write-Output "Pack:"
+foreach ($folder in $folders) {
+    Write-Output "- $($folder.Name)"
 
-$dependencies = @("PowerToys.Common.UI.dll", "PowerToys.ManagedCommon.dll", "PowerToys.Settings.UI.Lib.dll", "Wox.Infrastructure.dll", "Wox.Plugin.dll")
+    $name = $($folder.Name.Split(".")[-1])
 
-foreach ($platform in $platforms)
-{
-    Write-Output "Platform: $platform"
+    # Version
+    $json = Get-Content -Path (Join-Path $folder.FullName "plugin.json") -Raw | ConvertFrom-Json
+    $version = $json.Version
+    Write-Output "Version: $version"
 
-    # Build
-    dotnet build -c Release /p:TF_BUILD=true /p:Platform=$platform
+    # Platforms
+    [xml]$csproj = Get-Content -Path (Join-Path $folder.FullName "*.csproj")
+    $targetFramework = $csproj.Project.PropertyGroup.TargetFramework
+    $platforms = "$($csproj.Project.PropertyGroup.Platforms)".Trim() -split ";"
 
-    if (!$?) {
-        # Build FAILED.
-        Exit $LastExitCode
+    foreach ($platform in $platforms)
+    {
+        Write-Output "Platform: $platform"
+
+        # Build
+        dotnet build $folder -c Release /p:TF_BUILD=true /p:Platform=$platform
+
+        if (!$?) {
+            # Build FAILED.
+            Exit $LastExitCode
+        }
+
+        $output = "$folder\bin\$platform\Release\$targetFramework\"
+        $destination = "$folder\bin\$platform\$name"
+        $zip = "$folder\bin\$platform\$name-$version-$($platform.ToLower()).zip"
+
+        Copy-Item -Path $output -Destination $destination -Recurse -Exclude $dependencies
+        Compress-Archive -Path $destination -DestinationPath $zip
     }
-
-    $output = ".\bin\$platform\Release\net8.0-windows\"
-    $destination = ".\bin\$platform\$name"
-    $zip = ".\bin\$platform\$name-$version-$($platform.ToLower()).zip"
-
-    Copy-Item -Path $output -Destination $destination -Recurse -Exclude $dependencies
-    Compress-Archive -Path $destination -DestinationPath $zip
 }
