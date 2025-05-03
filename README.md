@@ -1,5 +1,16 @@
 # Community.PowerToys.Run.Plugin.Update
 
+TODO:
+diagram
+Översättningar
+
+.\update.ps1 "https://github.com/hlaueriksson/GEmojiSharp/releases/download/v4.0.0/GEmojiSharp.PowerToysRun-4.0.0-x64.zip" "c:\Users\Henrik\AppData\Local\Microsoft\PowerToys\PowerToys Run\Plugins\GEmojiSharp\"
+Invoke-Pester -Output Detailed .\update.Tests.ps1
+
+https://www.flaticon.com/free-icon/download_724933
+
+https://www.powershellgallery.com/packages/PSScriptAnalyzer/
+
 [![build](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/actions/workflows/build.yml)
 [![Snyk Security Scan](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/actions/workflows/snyk.yml/badge.svg)](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.Update/actions/workflows/snyk.yml)
 [![Community.PowerToys.Run.Plugin.Update](https://img.shields.io/nuget/v/Community.PowerToys.Run.Plugin.Update.svg?label=Community.PowerToys.Run.Plugin.Update)](https://www.nuget.org/packages/Community.PowerToys.Run.Plugin.Update)
