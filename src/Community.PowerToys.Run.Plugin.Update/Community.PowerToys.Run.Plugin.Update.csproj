@@ -5,10 +5,9 @@
     <UseWPF>true</UseWPF>
     <Platforms>x64;ARM64</Platforms>
     <PlatformTarget>$(Platform)</PlatformTarget>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <PackageReleaseNotes>
-- Change target framework to net9.0-windows
-- Bump Community.PowerToys.Run.Plugin.Dependencies to 0.87.1
+- Bump Community.PowerToys.Run.Plugin.Dependencies to 0.96.1
     </PackageReleaseNotes>
     <Authors>Henrik Lau Eriksson</Authors>
     <Description>This NuGet package adds support for updating PowerToys Run Plugins.</Description>
